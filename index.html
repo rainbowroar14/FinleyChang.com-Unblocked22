@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Visual Math</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <textarea
+      id="catcher"
+      autocomplete="off"
+      autocorrect="off"
+      autocapitalize="off"
+      spellcheck="false"
+    ></textarea>
+    <canvas id="viz"></canvas>
+    <div id="blocks"></div>
+    <header class="brand">Visual Math</header>
+    <div id="center">
+      <div id="prompt">
+        <span id="text"></span><span class="caret"></span><span class="after"></span><span id="eq-mark"></span><span id="live-ans"></span>
+      </div>
+    </div>
+    <p id="hint">type · change the equation · number flips · boxes adjust</p>
+    <script src="parser.js"></script>
+    <script src="game.js"></script>
+  </body>
+</html>

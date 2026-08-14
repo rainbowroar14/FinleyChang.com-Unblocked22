@@ -1,0 +1,250 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  height: 100%;
+  background: #000;
+  color: #f4f4f4;
+  overflow: hidden;
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+}
+
+body {
+  cursor: text;
+}
+
+#catcher {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  border: 0;
+  padding: 0;
+  resize: none;
+  pointer-events: none;
+}
+
+#viz {
+  display: none;
+}
+
+#blocks {
+  position: fixed;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.brand {
+  position: fixed;
+  top: 1.25rem;
+  left: 1.5rem;
+  z-index: 4;
+  font-size: 0.95rem;
+  letter-spacing: 0.38em;
+  text-transform: uppercase;
+  color: rgba(244, 244, 244, 0.38);
+  pointer-events: none;
+  user-select: none;
+}
+
+#center {
+  position: fixed;
+  inset: 0;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+#prompt {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  font-size: clamp(1.35rem, 4vw, 2.1rem);
+  line-height: 1.25;
+  white-space: pre;
+  color: #f4f4f4;
+}
+
+#eq-mark,
+#live-ans {
+  color: #f4f4f4;
+}
+
+#live-ans.waiting {
+  visibility: hidden;
+}
+
+#prompt.bad {
+  animation: shake 0.32s ease;
+}
+
+.caret {
+  display: inline-block;
+  width: 0.12em;
+  height: 1.1em;
+  margin-left: 2px;
+  background: #fff;
+  transform: translateY(0.12em);
+  animation: blink 1.05s steps(1) infinite;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+@keyframes shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-10px);
+  }
+  75% {
+    transform: translateX(10px);
+  }
+}
+
+.fall {
+  position: fixed;
+  z-index: 30;
+  margin: 0;
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: clamp(1.35rem, 4vw, 2.1rem);
+  line-height: 1.25;
+  color: #f4f4f4;
+  white-space: pre;
+  pointer-events: none;
+  will-change: transform;
+}
+
+.block {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 12px;
+  height: 12px;
+  border: none;
+  background: #fff;
+  pointer-events: none;
+  will-change: transform, opacity;
+  box-sizing: border-box;
+  opacity: 0;
+}
+
+.flip {
+  position: relative;
+  display: inline-grid;
+  vertical-align: baseline;
+  height: 1.25em;
+  perspective: 420px;
+  transform-style: preserve-3d;
+  justify-items: start;
+  align-items: baseline;
+}
+
+.flip-face {
+  grid-area: 1 / 1;
+  display: inline-block;
+  backface-visibility: hidden;
+  transform-origin: center center;
+  white-space: pre;
+}
+
+.flip-new {
+  visibility: hidden;
+}
+
+.flip.up.play .flip-old {
+  animation: flip-old-up 0.55s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.flip.up.play .flip-new {
+  visibility: visible;
+  animation: flip-new-up 0.55s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.flip.down.play .flip-old {
+  animation: flip-old-down 0.55s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.flip.down.play .flip-new {
+  visibility: visible;
+  animation: flip-new-down 0.55s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes flip-old-up {
+  0% {
+    transform: rotateX(0deg) translateY(0);
+    opacity: 1;
+  }
+  100% {
+    transform: rotateX(-90deg) translateY(-0.35em);
+    opacity: 0;
+  }
+}
+
+@keyframes flip-new-up {
+  0% {
+    transform: rotateX(90deg) translateY(0.35em);
+    opacity: 0;
+  }
+  100% {
+    transform: rotateX(0deg) translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes flip-old-down {
+  0% {
+    transform: rotateX(0deg) translateY(0);
+    opacity: 1;
+  }
+  100% {
+    transform: rotateX(90deg) translateY(0.35em);
+    opacity: 0;
+  }
+}
+
+@keyframes flip-new-down {
+  0% {
+    transform: rotateX(-90deg) translateY(-0.35em);
+    opacity: 0;
+  }
+  100% {
+    transform: rotateX(0deg) translateY(0);
+    opacity: 1;
+  }
+}
+
+#hint {
+  position: fixed;
+  left: 50%;
+  bottom: 1.2rem;
+  transform: translateX(-50%);
+  z-index: 4;
+  margin: 0;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  color: rgba(244, 244, 244, 0.28);
+  pointer-events: none;
+  user-select: none;
+  text-align: center;
+}
+
+#hint.gone {
+  opacity: 0;
+  transition: opacity 0.45s ease;
+}
